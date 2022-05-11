@@ -11,3 +11,7 @@ cat "$(dirname $0)/download_urls.txt" | while read -r line; do
   tar xzf "/kustomize/${version}/${version}.tar.gz" -C "/kustomize/${version}/"
   rm "/kustomize/${version}/${version}.tar.gz"
 done
+
+latest=$(tail -n1 "$(dirname $0)/download_urls.txt")
+latest_version=$(echo "$latest" | awk -F " " '{ print $1 }')
+ln -s "/kustomize/${latest_version}/kustomize" "/usr/bin/kustomize"
